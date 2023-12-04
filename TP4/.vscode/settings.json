@@ -1,0 +1,12 @@
+{
+    "editor.fontFamily": "Consolas, 'Confortaa', monospace",
+    "editor.codeLensFontSize": 23,
+    "editor.inlayHints.fontSize": 12,
+    "scm.inputFontSize": 20,
+    "notebook.markup.fontSize": 20,
+    "notebook.output.fontSize": 20,
+    "editor.fontSize": 23,
+    "markdown.preview.fontSize": 20,
+    "chat.editor.fontSize": 20,
+    "terminal.integrated.fontSize": 20
+}

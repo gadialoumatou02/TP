@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Histogramme avec d3.js</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+<script>
+
+var data = [{'name': 'A', 'number': 200}, {'name': 'B', 'number': 150}, {'name': 'C', 'number': 250}, {'name': 'D', 'number': 100}, {'name': 'E', 'number': 120}, {'name': 'F', 'number': 80}, {'name': 'G', 'number': 200}];
+
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", 400)
+            .attr("height", 250);
+
+svg.selectAll("rect")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("x", function(d, i) { return 50 + i * (40 + 10); })
+    .attr("y", function(d) { return 50 + 200 - (d.number / d3.max(data, function(d) { return d.number; })) * 200; })
+    .attr("width", 40)
+    .attr("height", function(d) { return (d.number / d3.max(data, function(d) { return d.number; })) * 200; })
+    .attr("fill", function(d, i) { 
+        if (d.number == 250 || d.number == 200) {
+            return "red"; // Classe C1
+        } else if (d.number == 150 || d.number == 120) {
+            return "blue"; // Classe C2
+        } else {
+            return "green"; // Classe C3
+        }
+    })
+    .attr("class", function(d, i) { 
+        if (d.number == 250 || d.number == 200) {
+            return "C1";
+        } else if (d.number == 150 || d.number == 120) {
+            return "C2";
+        } else {
+            return "C3";
+        }
+    });
+
+</script>
+
+</body>
+</html>

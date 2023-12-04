@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Histogramme avec d3.js</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+       .C1 {
+         fill: red;
+       }
+       .C2 {
+         fill: blue;
+       }
+       .C3 {
+         fill: green;
+       }
+    </style>
+</head>
+<body>
+
+<script>
+var data = [{"intensity": 0.4, "number": 200, "type": "A", "x": 100, "y": 80}, {"intensity": 0.6, "number": 150, "type": "B", "x": 130, "y": 120}, {"intensity": 0.7, "number": 250, "type": "A", "x": 150, "y": 150}, {"intensity": 0.3, "number": 100, "type": "B", "x": 200, "y": 200}, {"intensity": 0.7, "number": 120, "type": "A", "x": 300, "y": 400}, {"intensity": 0.4, "number": 80, "type": "B", "x": 200, "y": 350}, {"intensity": 0.8, "number": 200, "type": "A", "x": 350, "y": 100}];
+
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", 900)
+            .attr("height", 900);
+
+svg.selectAll("shape")
+    .data(data)
+    .enter()
+    .append("g")
+    .each(function(d) {
+        if (d.type === "A") {
+            d3.select(this).append("circle")
+                .attr("cx", d.x)
+                .attr("cy", d.y)
+                .attr("r", Math.sqrt(d.number) * 5)
+                .attr("class", function(d, i) {
+                    if (d.number == 250 || d.number == 200) {
+                        return "C1";
+                    } 
+                    else if (d.number == 150 || d.number == 120) {
+                        return "C2";
+                    }
+                    else {
+                        return "C3";
+                    }
+                })
+                .on('mouseover', function() {
+                        d3.select(this)
+                        .transition()
+                        .duration(300)
+                        .attr('r', d => d.number / 3 + 5);
+                })
+                .on('mouseout', function() {
+                        d3.select(this)
+                        .transition()
+                        .duration(300)
+                        .attr('r', d => d.number / 3);
+                })
+                .style("opacity", d.intensity);
+        }
+        else if (d.type === "B") {
+            d3.select(this).append("rect")
+                .attr("x", d.x - Math.sqrt(d.number) * 5)
+                .attr("y", d.y - Math.sqrt(d.number) * 5)
+                .attr("width", Math.sqrt(d.number) * 10)
+                .attr("height", Math.sqrt(d.number) * 10)
+                .attr("class", function(d, i) {
+                    if (d.number == 250 || d.number == 200) {
+                        return "C1";
+                    }
+                    else if (d.number == 150 || d.number == 120) {
+                        return "C2";
+                    }
+                    else {
+                        return "C3";
+                    }
+                })
+                .on('mouseover', function() {
+                        d3.select(this)
+                        .transition()
+                        .duration(300)
+                        .attr('width', d => d.number / 2 + 10)
+                        .attr('height', d => d.number / 2 + 10);
+                })
+                .on('mouseout', function() {
+                        d3.select(this)
+                        .transition()
+                        .duration(300)
+                        .attr('width', d => d.number / 2)
+                        .attr('height', d => d.number / 2);
+                })
+                .style("opacity", d.intensity);
+        }
+    });
+    
+
+</script>
+
+</body>
+</html>

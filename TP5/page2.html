@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Histogramme dynamique avec D3.js</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+    <script>
+        var data = [
+            {"x": 100, "y": 10, "number": 200, "class": "C1", "intensity": 0.4},
+            {"x": 130, "y": 120, "number": 150, "class": "C1", "intensity": 0.6},
+            {"x": 200, "y": 150, "number": 250, "class": "C2", "intensity": 0.7},
+            {"x": 400, "y": 200, "number": 100, "class": "C2", "intensity": 0.3},
+            {"x": 300, "y": 400, "number": 120, "class": "C3", "intensity": 0.7},
+            {"x": 200, "y": 350, "number": 80, "class": "C3", "intensity": 0.4},
+            {"x": 350, "y": 100, "number": 200, "class": "C3", "intensity": 0.8}
+        ];
+
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", 500)
+            .attr("height", 500);
+
+        svg.selectAll("rect")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", function(d) { return d.x; })
+            .attr("y", function(d) { return d.y; })
+            .attr("width", 50)
+            .attr("height", function(d) { return d.number; })
+            .attr("fill", function(d) {
+                if (d.class === "C1") {
+                    return "steelblue";
+                } else if (d.class === "C2") {
+                    return "orange";
+                } else if (d.class === "C3") {
+                    return "green";
+                }
+            });
+    </script>
+</body>
+</html>
